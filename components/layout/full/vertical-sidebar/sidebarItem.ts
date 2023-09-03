@@ -20,24 +20,38 @@ export interface menu {
 }
 
 const sidebarItem: menu[] = [
-    { header: 'Home' },
+    { header: 'Principal' },
     {
-        title: 'Dashboard',
+        title: 'Horario',
         icon: LayoutDashboardIcon,
         to: '/'
     },
-    { header: 'utilities' },
+    { header: 'Manejo de Datos' },
     {
-        title: 'Typography',
+        title: 'Clases',
         icon: TypographyIcon,
-        to: '/ui/typography'
+        //to: '/ui/typography'
+        to: '/clases'
     },
     {
-        title: 'Shadow',
+        title: 'Profesores',
         icon: CopyIcon,
-        to: '/ui/shadow'
+        //to: '/ui/shadow'
+        to: '/profesores'
     },
-    { header: 'auth' },
+    {
+        title: 'Materias',
+        icon: CopyIcon,
+        //to: '/ui/shadow'
+        to: '/materias'
+    },
+    {
+        title: 'Materias',
+        icon: CopyIcon,
+        //to: '/ui/shadow'
+        to: '/materias'
+    },
+    /*{ header: 'auth' },
     {
         title: 'Login',
         icon: LoginIcon,
@@ -47,7 +61,7 @@ const sidebarItem: menu[] = [
         title: 'Register',
         icon: UserPlusIcon,
         to: '/auth/register'
-    },
+    },*/
     { header: 'Extra' },
     {
         title: 'Icons',

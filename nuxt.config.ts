@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   ssr: false,
+  modules: [
+    '@pinia/nuxt'
+  ],
   typescript: {
     shim: false
   },
@@ -18,7 +22,11 @@ export default defineNuxtConfig({
   devServerHandlers: [],
   hooks: {
   },
-
+  runtimeConfig: {
+    public: {
+      SERVER_URL: process.env.SERVER_URL
+    }
+  }
 })
 
 

@@ -29,3 +29,20 @@ definePageMeta({
         </v-container>
     </div>
 </template>
+<script lang="ts">
+export default {
+    data() {
+        return {
+            
+        }
+    },
+    beforeCreate() {
+        console.log(this.$store.counter);
+        this.$store.increment();
+        console.log(this.$store.counter);
+        this.$axios.get("/").then((res) =>{
+            console.log('response: ', res);
+        });
+    }
+}
+</script>

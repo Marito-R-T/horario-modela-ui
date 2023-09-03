@@ -7,6 +7,14 @@ import RecentTransaction from '@/components/dashboard/RecentTransaction.vue';
 import ProductPerformance from '@/components/dashboard/ProductPerformance.vue';
 import ProductCards from '@/components/dashboard/ProductCards.vue';
 
+
+definePageMeta({
+    middleware: ["default"]
+})
+
+const store = useNuxtApp().$store
+const axios = useNuxtApp().$axios
+
 </script>
 <template>
     <v-row>
@@ -44,3 +52,15 @@ import ProductCards from '@/components/dashboard/ProductCards.vue';
         </v-col>
     </v-row>
 </template>
+<script lang="ts">
+export default {
+    data() {
+        return {
+            
+        }
+    },
+    created() {
+        console.log(this.$store.token);
+    },
+}
+</script>

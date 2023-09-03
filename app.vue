@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage/>
+      <NuxtPage route="/auth/login"/>
     </NuxtLayout>
   </div>
 </template>

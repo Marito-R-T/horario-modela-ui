@@ -29,9 +29,6 @@ const sDrawer = ref(true);
                     <!---End Single Item-->
                 </template>
             </v-list>
-            <div class="pa-4">
-                <LayoutFullVerticalSidebarExtraBox/>
-            </div>
         </perfect-scrollbar>
     </div>
 
@@ -42,14 +39,10 @@ const sDrawer = ref(true);
             <div>
                 <v-btn class="hidden-lg-and-up ms-md-3 ms-sm-5 ms-3 text-muted" @click="sDrawer = !sDrawer" icon variant="flat"
                     size="small">
-                    <Menu2Icon size="20" stroke-width="1.5" />
+                    <Menu2Icon size="20" />
                 </v-btn>
-                <!-- Notification -->
-                <LayoutFullVerticalHeaderNotificationDD/>
             </div>
             <div>
-                <!-- Upgrade button -->
-                <v-btn class="mr-2 bg-primary" href="https://adminmart.com/templates/nuxtjs/" target="_blank">Download Free</v-btn>
                 <!-- User Profile -->
                 <LayoutFullVerticalHeaderProfileDD />
             </div>
