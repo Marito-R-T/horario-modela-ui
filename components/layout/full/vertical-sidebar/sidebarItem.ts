@@ -46,10 +46,16 @@ const sidebarItem: menu[] = [
         to: '/materias'
     },
     {
-        title: 'Materias',
+        title: 'Secciones',
         icon: CopyIcon,
         //to: '/ui/shadow'
-        to: '/materias'
+        to: '/secciones'
+    },
+    {
+        title: 'Asignación',
+        icon: CopyIcon,
+        //to: '/ui/shadow'
+        to: '/asignacion'
     },
     /*{ header: 'auth' },
     {

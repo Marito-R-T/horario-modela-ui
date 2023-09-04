@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import Shadow from "@/components/style-components/shadow/Shadow.vue";
+import UiParentCard from '@/components/shared/UiParentCard.vue';
+import AulaPrincipalPage from '@/components/aula/AulaPrincipalPage.vue';
 </script>
 
 <template>
     <v-row>
-        <v-col cols="12">
-            <Shadow/>
+        <v-col cols="12" md="12">
+            <UiParentCard title="Aulas"> 
+                <AulaPrincipalPage/>
+            </UiParentCard>
         </v-col>
     </v-row>
 </template> 
