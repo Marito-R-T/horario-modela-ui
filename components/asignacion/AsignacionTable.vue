@@ -64,10 +64,16 @@
       </v-toolbar>
     </template>
     <template v-slot:item.primario="{ item }">
-      <v-chip v-if="item.selectable.primario">
+      <v-chip
+        v-if="item.selectable.primario"
+        :class="'text-body-1 bg-success'"
+      >
         {{ item.selectable.primario ? "si" : "no" }}
       </v-chip>
-      <v-chip v-else>
+      <v-chip
+        v-else
+        :class="'text-body-1 bg-error'"
+      >
         {{ item.selectable.primario ? "si" : "no" }}
       </v-chip>
     </template>
