@@ -41,26 +41,26 @@
             v-model="name"
           ></v-text-field>
         </v-col>
-        <!--<v-col
+        <v-col
           cols="12"
           sm="6"
         >
-          <v-select
-            :items="['0-17', '18-29', '30-54', '54+']"
-            label="Age*"
+          <v-text-field
+            label="Periodo Inicio*"
             required
-          ></v-select>
+            v-model="inicio"
+          ></v-text-field>
         </v-col>
         <v-col
           cols="12"
           sm="6"
         >
-          <v-autocomplete
-            :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-            label="Interests"
-            multiple
-          ></v-autocomplete>
-        </v-col>-->
+          <v-text-field
+            label="Periodo Salida*"
+            required
+            v-model="final"
+          ></v-text-field>
+        </v-col>
       </v-row>
     </v-container>
     <small>*indicates required field</small>
@@ -70,6 +70,8 @@
   export default {
     data: () => ({
       name: "",
+      inicio: "",
+      final: "",
     }),
     props: {
       editedCatedratico: {
@@ -79,7 +81,7 @@
     },
     methods: {
       getData(): any {
-        return { name: this.name };
+        return { name: this.name, periodo_inicio: this.inicio, periodo_final: this.final };
       },
       fillData(data: any) {
         this.name = data.nombre;
@@ -87,6 +89,8 @@
     },
     created() {
       this.name = this.editedCatedratico?.nombre ? this.editedCatedratico?.nombre : "";
+      this.inicio = this.editedCatedratico?.periodo_inicio !== null ? this.editedCatedratico?.periodo_inicio : "";
+      this.final = this.editedCatedratico?.periodo_final !== null ? this.editedCatedratico?.periodo_final : "";
     },
   }
 </script>

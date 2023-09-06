@@ -123,6 +123,18 @@ export default {
         sortable: false
       },
       {
+        title: 'Periodo Inicio',
+        align: 'start',
+        key: 'periodo_inicio',
+        sortable: false
+      },
+      {
+        title: 'Periodo Final',
+        align: 'start',
+        key: 'periodo_final',
+        sortable: false
+      },
+      {
         title: 'Actions', key: 'actions', sortable: false
       }
     ],
@@ -184,6 +196,8 @@ export default {
       let v = this.$refs.form.getData();
       this.$axios.patch(`/catedraticos/${this.editedCatedratico.id}`, {
         nombre: v.name,
+        periodo_inicio: v.periodo_inicio,
+        periodo_final: v.periodo_final,
       }, {
         headers: headers
       }).then((res) => {
@@ -200,6 +214,8 @@ export default {
       let eCatedratico = {
         id: item.id,
         nombre: item.nombre,
+        periodo_inicio: item.periodo_inicio,
+        periodo_final: item.periodo_final,
       }
       this.editedCatedratico = eCatedratico;
       this.dialog = true;

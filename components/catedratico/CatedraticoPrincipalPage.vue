@@ -31,6 +31,8 @@ export default {
       let v = this.$refs.form.getData();
       this.$axios.post("/catedraticos", {
         nombre: v.name,
+        periodo_inicio: v.periodo_inicio,
+        periodo_final: v.periodo_final,
       }, {
         headers: headers
       }).then((res) => {
