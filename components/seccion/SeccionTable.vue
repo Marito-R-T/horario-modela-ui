@@ -123,6 +123,12 @@ export default {
         sortable: false
       },
       {
+        title: 'Letra',
+        align: 'start',
+        key: 'letra',
+        sortable: false
+      },
+      {
         title: 'Actions', key: 'actions', sortable: false
       }
     ],
@@ -186,6 +192,7 @@ export default {
       let v = this.$refs.form.getData();
       this.$axios.patch(`/secciones/${this.editedSeccion.id}`, {
         asignados: v.asignados,
+        letra: v.letra,
         materia_id: v.materia_id
       }, {
         headers: headers
@@ -205,6 +212,7 @@ export default {
         id: item.id,
         asignados: item.asignados,
         materia_id: item.materia_id,
+        letra: item.letra
       }
       this.editedSeccion = eSeccion;
       this.dialog = true;

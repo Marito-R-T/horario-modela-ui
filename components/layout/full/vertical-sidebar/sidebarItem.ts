@@ -1,7 +1,8 @@
 import {
     ApertureIcon,
     CopyIcon,
-    LayoutDashboardIcon, LoginIcon, MoodHappyIcon, TypographyIcon, UserPlusIcon
+    LayoutDashboardIcon, MoodHappyIcon,
+    UserIcon, BookIcon, NewSectionIcon, SchoolIcon, CirclesRelationIcon
 } from 'vue-tabler-icons';
 
 export interface menu {
@@ -29,31 +30,31 @@ const sidebarItem: menu[] = [
     { header: 'Manejo de Datos' },
     {
         title: 'Clases',
-        icon: TypographyIcon,
+        icon: SchoolIcon,
         //to: '/ui/typography'
         to: '/clases'
     },
     {
         title: 'Profesores',
-        icon: CopyIcon,
+        icon: UserIcon,
         //to: '/ui/shadow'
         to: '/profesores'
     },
     {
         title: 'Materias',
-        icon: CopyIcon,
+        icon: BookIcon,
         //to: '/ui/shadow'
         to: '/materias'
     },
     {
         title: 'Secciones',
-        icon: CopyIcon,
+        icon: NewSectionIcon,
         //to: '/ui/shadow'
         to: '/secciones'
     },
     {
         title: 'Asignación',
-        icon: CopyIcon,
+        icon: CirclesRelationIcon,
         //to: '/ui/shadow'
         to: '/asignacion'
     },
@@ -68,7 +69,7 @@ const sidebarItem: menu[] = [
         icon: UserPlusIcon,
         to: '/auth/register'
     },*/
-    { header: 'Extra' },
+    /*{ header: 'Extra' },
     {
         title: 'Icons',
         icon: MoodHappyIcon,
@@ -78,7 +79,7 @@ const sidebarItem: menu[] = [
         title: 'Sample Page',
         icon: ApertureIcon,
         to: '/sample-page'
-    },
+    },*/
 ];
 
 export default sidebarItem;

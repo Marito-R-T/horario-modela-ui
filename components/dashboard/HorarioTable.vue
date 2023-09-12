@@ -67,6 +67,7 @@ import { Catedratico } from './Catedratico';
                   class="mx-auto"
                   prepend-icon="mdi-home"
                   width="350"
+                  height="200"
                 >
                   <template v-slot:title>
                       {{ periodo.seccion ? periodo.seccion.materia.nombre : "" }}
@@ -75,7 +76,7 @@ import { Catedratico } from './Catedratico';
                     <v-row>
                       <v-col cols="6">
                         <div class="pl-4">
-                          <b class="pr-2">Seccion</b> {{ periodo.seccion.number }}
+                          <b class="pr-2">Seccion</b> {{ periodo.seccion.letra }}
                         </div>
                       </v-col>
                       <v-col cols="6">
@@ -111,6 +112,7 @@ export default {
   data() {
     return {
       aulas: new Array<Aula>,
+      horas: new Array<Array<Periodo>>,
       horarios: 7,
       horaInicio: 13,
       minutoInicio: 0,
@@ -121,15 +123,16 @@ export default {
     periodos(): Array<Hora> {
       let periodos = new Array<Hora>;
       let horaIn = new Date(2016, 1, 1, this.horaInicio, this.minutoInicio, 0);
-      for (let i = 0; i < this.horarios; i++) {
+      for (let i = 0; i < this.horas.length; i++) {
+        let horaArray = this.horas[i];
         let horaI = new Date(2016, 1, 1, this.horaInicio, horaIn.getMinutes() + (this.duracionPeriodoMinutos*i));
         let horaF = new Date(2016, 1, 1, this.horaInicio, horaIn.getMinutes() + (this.duracionPeriodoMinutos*(i+1)));
         let hora: Hora = {
-          periodos: new Array<Periodo>,
+          periodos: horaArray,
           horaInicio: horaI,
           horaFinal: horaF
         };
-        this.aulas.forEach((aula) => {
+        /*this.aulas.forEach((aula) => {
           let periodo: Periodo = {
             aula,
             catedratico: {
@@ -148,7 +151,7 @@ export default {
             }
           }
           hora.periodos.push(periodo);
-        });
+        });*/
         periodos.push(hora);
       }
       return periodos
@@ -172,11 +175,24 @@ export default {
         'Authorization': 'Bearer ' + this.$store.token
       }
       this.$axios.post("/horario", {
-        periodos: 1,
+        periodos: 3,
+        porcentaje_catedratico_opcional: 0.5,
+        porcentaje_fuera_hora: 0.5,
+        porcentaje_fuera_capacidad: 0.5,
+        porcentaje_materia_secundaria: 0.7,
+        minimo_porcentaje_secciones_chicas: 0.3,
+        diferencia_entre_secciones_aulas: 0.1,
+        cantidad_horarios: 5
       }, {
         headers: headers
       }).then((res) => {
-        console.log(res);
+        return res.data;
+      }).then((data) => {
+        this.aulas = data[1].aulas;
+        this.horarios = data[1].periodos;
+        this.horas = data[1].horas;
+        console.log(data);
+        console.log(data.aulas);
       }).catch((err) => {
         console.log(err);
       });

@@ -41,6 +41,13 @@
             v-model="asignados"
           ></v-text-field>
         </v-col>
+        <v-col cols="12">
+          <v-text-field
+            label="Letra*"
+            required
+            v-model="letra"
+          ></v-text-field>
+        </v-col>
         <v-combobox
           label="Materia"
           :items="materias"
@@ -84,6 +91,7 @@
       materia_id: null,
       materias: [],
       loading: false,
+      letra: ""
     }),
     props: {
       editedSeccion: {
@@ -96,7 +104,7 @@
         console.log(this.materia_id);
       },
       getData(): any {
-        return { asignados: this.asignados, materia_id: this.materia_id.id };
+        return { asignados: this.asignados, materia_id: this.materia_id.id, letra: this.letra };
       },
       fillData(data: any) {
         console.log(data)
@@ -120,6 +128,7 @@
         if(this.editedSeccion?.materia_id) {
           this.asignados = this.editedSeccion?.asignados ? this.editedSeccion?.asignados : "";
           this.materia_id = this.materias.find((m) => m.id == this.editedSeccion.materia_id);
+          this.letra = this.editedSeccion?.letra ? this.editedSeccion?.letra : "";
         }
       }).catch((err) => {
         console.log(err);

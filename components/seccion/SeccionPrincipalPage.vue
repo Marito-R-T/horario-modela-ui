@@ -31,6 +31,7 @@ export default {
       let v = this.$refs.form.getData();
       this.$axios.post("/secciones", {
         asignados: v.asignados,
+        letra: v.letra,
         materia_id: v.materia_id
       }, {
         headers: headers

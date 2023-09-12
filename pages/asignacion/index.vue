@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 import AsignacionPrincipalPage from '@/components/asignacion/AsignacionPrincipalPage.vue';
+
+definePageMeta({
+    middleware: ["default"]
+})
 </script>
 
 <template>

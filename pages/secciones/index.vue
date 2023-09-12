@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 import SeccionPrincipalPage from '@/components/seccion/SeccionPrincipalPage.vue';
+
+definePageMeta({
+    middleware: ["default"]
+})
 </script>
 
 <template>

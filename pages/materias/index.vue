@@ -2,6 +2,10 @@
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 import MateriaPrincipalPage from '@/components/materia/MateriaPrincipalPage.vue';
 import Shadow from "@/components/style-components/shadow/Shadow.vue";
+
+definePageMeta({
+    middleware: ["default"]
+})
 </script>
 
 <template>
