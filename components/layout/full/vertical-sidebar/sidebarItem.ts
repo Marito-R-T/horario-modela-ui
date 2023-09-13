@@ -71,15 +71,15 @@ const sidebarItem: menu[] = [
     },*/
     /*{ header: 'Extra' },
     {
-        title: 'Icons',
-        icon: MoodHappyIcon,
-        to: '/icons'
-    },
-    {
         title: 'Sample Page',
         icon: ApertureIcon,
         to: '/sample-page'
     },*/
+    {
+        title: 'Icons',
+        icon: MoodHappyIcon,
+        to: '/icons'
+    }
 ];
 
 export default sidebarItem;

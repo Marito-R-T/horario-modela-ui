@@ -2,19 +2,39 @@
 import {productPerformance} from '@/data/dashboard/dashboardData';
 import { Periodo } from './Periodo';
 import { Aula } from './Aula';
-import { Hora } from './Hora';
-import {
-  VDataTableVirtual
-} from "vuetify/labs/VDataTable";
-import { Catedratico } from './Catedratico';
+import { Hora } from './Hora';import {
+  ArrowBadgeLeftFilledIcon,
+  ArrowBadgeRightFilledIcon,
+} from 'vue-tabler-icons';
+import { Settings } from './Settings';
+import { HorarioFinal } from './Horario';
+import AddContentDialog from '@/components/shared/AddContentDialog.vue';
+import ContentDialogSettings from '@/components/dashboard/ContentDialogSettings.vue'
+
 </script>
 <template>
     <v-card elevation="10" class="">
-        <v-card-item class="pa-6">
-        <v-card-title class="text-h5 pt-sm-2 pb-7">Horario</v-card-title>
-        <v-btn @click="getHorario">
-          Get Array
-        </v-btn>
+      <AddContentDialog 
+        type="Configuración" 
+        title="Agregar Catedratico" 
+        @add-content="setUpSettings">
+        <ContentDialogSettings ref="form"/>
+      </AddContentDialog>
+      <v-card-item class="pa-6">
+        <v-card-title class="text-h5 pt-sm-2 pb-7">Horario #{{ (indexData+1) }}/{{ totalData }}</v-card-title>
+        <v-row class="pb-5">
+          <v-col cols="2" class="d-flex justify-start">
+            <v-btn @click="previousHorario" density="compact" :icon="ArrowBadgeLeftFilledIcon"></v-btn>
+          </v-col>
+          <v-col cols="8" class="d-flex justify-center">
+            <v-btn size="large" @click="getHorario">
+              Obtener Horarios con la Configuración Actual
+            </v-btn>
+          </v-col>
+          <v-col cols="2" class="d-flex justify-end">
+            <v-btn @click="nextHorario" density="compact" :icon="ArrowBadgeRightFilledIcon"></v-btn>
+          </v-col>
+        </v-row>
         <v-table>
           <thead>
             <tr>
@@ -103,7 +123,7 @@ import { Catedratico } from './Catedratico';
             </tr>
           </tbody>
         </v-table>
-        </v-card-item>
+      </v-card-item>
     </v-card>
 </template>
 <script lang="ts">
@@ -113,10 +133,13 @@ export default {
     return {
       aulas: new Array<Aula>,
       horas: new Array<Array<Periodo>>,
+      data: new Array<HorarioFinal>,
       horarios: 7,
       horaInicio: 13,
       minutoInicio: 0,
-      duracionPeriodoMinutos: 50
+      duracionPeriodoMinutos: 50,
+      indexData: 0,
+      totalData:0
     }
   },
   computed: {
@@ -175,35 +198,58 @@ export default {
         'Authorization': 'Bearer ' + this.$store.token
       }
       this.$axios.post("/horario", {
-        periodos: 3,
-        porcentaje_catedratico_opcional: 0.5,
-        porcentaje_fuera_hora: 0.5,
-        porcentaje_fuera_capacidad: 0.5,
-        porcentaje_materia_secundaria: 0.7,
-        minimo_porcentaje_secciones_chicas: 0.3,
-        diferencia_entre_secciones_aulas: 0.1,
-        cantidad_horarios: 5
+        periodos: this.$store.periodos,
+        porcentaje_catedratico_opcional:this.$store.porcentaje_catedratico_opcional,
+        porcentaje_fuera_hora: this.$store.porcentaje_fuera_hora,
+        porcentaje_fuera_capacidad: this.$store.porcentaje_fuera_capacidad,
+        porcentaje_materia_secundaria: this.$store.porcentaje_materia_secundaria,
+        minimo_porcentaje_secciones_chicas: this.$store.minimo_porcentaje_secciones_chicas,
+        diferencia_entre_secciones_aulas: this.$store.diferencia_entre_secciones_aulas,
+        cantidad_horarios: this.$store.cantidad_horarios
       }, {
         headers: headers
       }).then((res) => {
         return res.data;
       }).then((data) => {
-        this.aulas = data[1].aulas;
-        this.horarios = data[1].periodos;
-        this.horas = data[1].horas;
-        console.log(data);
-        console.log(data.aulas);
+        this.data = data;
+        this.totalData = data.length;
+        this.indexData = 0;
+        this.setHorario();
       }).catch((err) => {
         console.log(err);
       });
+    },
+    setHorario() {
+      if(this.data?.length > this.indexData){
+        this.aulas = this.data[this.indexData].aulas;
+        this.horarios = this.data[this.indexData].periodos;
+        this.horas = this.data[this.indexData].horas;
+      }
+    },
+    nextHorario() {
+      if(this.data?.length > (this.indexData + 1)){
+        this.indexData = this.indexData + 1;
+        this.setHorario();
+      }
+    },
+    previousHorario() {
+      if(0 <= (this.indexData -1)){
+        this.indexData = this.indexData - 1;
+        this.setHorario();
+      }
+    },
+    setUpSettings() {
+      let v: Settings = this.$refs.form.getData();
+      this.$store.setPeriodos(v.periodos);
+      this.$store.setPorcentajeCatedraticoOpcional(v.porcentaje_catedratico_opcional);
+      this.$store.setPorcentajeFueraHora(v.porcentaje_fuera_hora);
+      this.$store.setPorcentajeMateriaSecundaria(v.porcentaje_materia_secundaria);
+      this.$store.setMinimoPorcentajeSeccionesChicas(v.minimo_porcentaje_secciones_chicas);
+      this.$store.setDiferenciaEntreSeccionesAulas(v.diferencia_entre_secciones_aulas);
+      this.$store.setCantidadHorarios(v.cantidad_horarios);
     }
   },
   mounted() {
-    this.aulas.push({capacidad: 150, id:1, nombre: "1"});
-    this.aulas.push({capacidad: 100, id:2, nombre: "2"});
-    this.aulas.push({capacidad: 100, id:3, nombre: "3"});
-    this.aulas.push({capacidad: 100, id:3, nombre: "4"});
-    console.log(this.periodos);
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="end" class="pr-3 pb-3">
+  <v-row :justify="justify" class="pr-3 pb-3">
     <v-dialog
       v-model="dialog"
       persistent
@@ -44,6 +44,10 @@
     props: {
       title: String,
       type: String,
+      justify: {
+        type: String,
+        default: 'end'
+      }
     },
     data: () => ({
       dialog: false,

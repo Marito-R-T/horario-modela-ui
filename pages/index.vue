@@ -27,10 +27,10 @@ const axios = useNuxtApp().$axios
                     <!--<ProductPerformance />-->
                 </v-col>
                 <!-- Sales overview -->
-                <v-col cols="12" lg="8">
+                <!--<v-col cols="12" lg="8">
                     <SalesOverview />
                 </v-col>
-                <!-- Yearly Breakup / Monthly Earnings -->
+                <-- Yearly Breakup / Monthly Earnings
                 <v-col cols="12" lg="4">
                     <div class="mb-6">
                         <YearlyBreakup />
@@ -39,14 +39,14 @@ const axios = useNuxtApp().$axios
                         <MonthlyEarning />
                     </div>
                 </v-col>
-                <!-- Recent transaction -->
-                <!--<v-col cols="12" lg="4">
+                <-- Recent transaction
+                <--<v-col cols="12" lg="4">
                     <RecentTransaction />
                 </v-col>-->
-                <!-- Product Cards -->
+                <!-- Product Cards
                 <v-col cols="12">
                     <ProductCards />
-                </v-col>
+                </v-col>-->
             </v-row>
         </v-col>
         <v-col class="text-center mt-2">
