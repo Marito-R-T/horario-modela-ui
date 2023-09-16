@@ -10,6 +10,7 @@ import { Settings } from './Settings';
 import { HorarioFinal } from './Horario';
 import AddContentDialog from '@/components/shared/AddContentDialog.vue';
 import ContentDialogSettings from '@/components/dashboard/ContentDialogSettings.vue'
+import VPeriodo from '@/components/dashboard/Periodo.vue'
 
 </script>
 <template>
@@ -83,11 +84,15 @@ import ContentDialogSettings from '@/components/dashboard/ContentDialogSettings.
                 </v-card>
               </td>
               <td v-for="periodo, idp of hora.periodos" :key="'p'+(idh*idp)" class="pa-4">
-                <v-card
+                <VPeriodo
+                  :periodo="periodo"
+                />
+                <!--<v-card
                   class="mx-auto"
                   prepend-icon="mdi-home"
                   width="350"
                   height="200"
+                  @click=""
                 >
                   <template v-slot:title>
                       {{ periodo.seccion ? periodo.seccion.materia.nombre : "" }}
@@ -118,7 +123,7 @@ import ContentDialogSettings from '@/components/dashboard/ContentDialogSettings.
                   <v-card-subtitle class="pl-10 pb-5">
                     Su capacidad es de {{ periodo.aula.capacidad }} alumnos
                   </v-card-subtitle>
-                </v-card>
+                </v-card>-->
               </td>
             </tr>
           </tbody>
@@ -205,7 +210,8 @@ export default {
         porcentaje_materia_secundaria: this.$store.porcentaje_materia_secundaria,
         minimo_porcentaje_secciones_chicas: this.$store.minimo_porcentaje_secciones_chicas,
         diferencia_entre_secciones_aulas: this.$store.diferencia_entre_secciones_aulas,
-        cantidad_horarios: this.$store.cantidad_horarios
+        cantidad_horarios: this.$store.cantidad_horarios,
+        porcentaje_no_catedratico: 0.05
       }, {
         headers: headers
       }).then((res) => {
