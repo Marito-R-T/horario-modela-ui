@@ -7,5 +7,6 @@ export class Settings {
   minimo_porcentaje_secciones_chicas!: number;
   diferencia_entre_secciones_aulas!: number;
   cantidad_horarios!: number;
-  porcentaje_no_catedratico?: number;
+  porcentaje_no_catedratico!: number;
+  minutos!: number;
 }

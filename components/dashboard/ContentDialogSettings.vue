@@ -107,6 +107,32 @@
             @input="validarCantidadHorarios"
           ></v-text-field>
         </v-col>
+        <v-col
+          cols="6"
+          sm="6"
+        >
+          <v-text-field
+            label="Porcentaje si no hay catedratico disponible*"
+            type="number"
+            step="0.01"
+            required
+            v-model="porcentaje_no_catedratico"
+            @input="validarPorcentajeNoCatedratico"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="6"
+          sm="6"
+        >
+          <v-text-field
+            label="Cantidad de Minutos que tiene un periodo*"
+            type="number"
+            step="1"
+            required
+            v-model="minutos"
+            @input="validarMinutos"
+          ></v-text-field>
+        </v-col>
       </v-row>
     </v-container>
     <small>*indicates required field</small>
@@ -123,6 +149,8 @@
       minimo_porcentaje_secciones_chicas: 0,
       diferencia_entre_secciones_aulas: 0,
       cantidad_horarios: 0,
+      porcentaje_no_catedratico: 0,
+      minutos: 0,
     }),
     props: {
       settings: {
@@ -140,7 +168,9 @@
           porcentaje_materia_secundaria: this.porcentaje_materia_secundaria,
           minimo_porcentaje_secciones_chicas: this.minimo_porcentaje_secciones_chicas,
           diferencia_entre_secciones_aulas: this.diferencia_entre_secciones_aulas,
-          cantidad_horarios: this.cantidad_horarios
+          cantidad_horarios: this.cantidad_horarios,
+          porcentaje_no_catedratico: this.porcentaje_no_catedratico,
+          minutos: this.minutos
         };
       },
       fillData(data: any) {
@@ -188,6 +218,20 @@
           this.diferencia_entre_secciones_aulas = 0.5;
         }
       },
+      validarPorcentajeNoCatedratico() {
+        if (this.porcentaje_no_catedratico < 0) {
+          this.porcentaje_no_catedratico = 0;
+        } else if (this.porcentaje_no_catedratico > 1) {
+          this.porcentaje_no_catedratico = 1;
+        }
+      },
+      validarMinutos() {
+        if (this.minutos < 0) {
+          this.minutos = 0;
+        } else if (this.minutos > 120) {
+          this.minutos = 120;
+        }
+      },
       validarPeriodos() {
         if (this.periodos < 0) {
           this.periodos = 0;
@@ -212,6 +256,8 @@
       this.minimo_porcentaje_secciones_chicas = this.$store.minimo_porcentaje_secciones_chicas;
       this.diferencia_entre_secciones_aulas = this.$store.diferencia_entre_secciones_aulas;
       this.cantidad_horarios = this.$store.cantidad_horarios;
+      this.porcentaje_no_catedratico = this.$store.porcentaje_no_catedratico;
+      this.minutos = this.$store.minutos;
     },
   }
 </script>

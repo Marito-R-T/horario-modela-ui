@@ -7,4 +7,5 @@ export class HorarioFinal {
   aulas!: Array<Aula>
   periodos!: number
   seccionesNoEncontradas!: Array<Seccion>
+  porcentajeAcierto!: number
 }

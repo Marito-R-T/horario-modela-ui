@@ -11,6 +11,7 @@ import { HorarioFinal } from './Horario';
 import AddContentDialog from '@/components/shared/AddContentDialog.vue';
 import ContentDialogSettings from '@/components/dashboard/ContentDialogSettings.vue'
 import VPeriodo from '@/components/dashboard/Periodo.vue'
+import { Seccion } from './Seccion';
 
 </script>
 <template>
@@ -23,6 +24,9 @@ import VPeriodo from '@/components/dashboard/Periodo.vue'
       </AddContentDialog>
       <v-card-item class="pa-6">
         <v-card-title class="text-h5 pt-sm-2 pb-7">Horario #{{ (indexData+1) }}/{{ totalData }}</v-card-title>
+        <v-card-subtitle v-if="porcentajeFinal >= 0">
+          El porcentaje de Acierto de este horario es de {{ porcentajeFinal }}
+        </v-card-subtitle>
         <v-row class="pb-5">
           <v-col cols="2" class="d-flex justify-start">
             <v-btn @click="previousHorario" density="compact" :icon="ArrowBadgeLeftFilledIcon"></v-btn>
@@ -129,6 +133,21 @@ import VPeriodo from '@/components/dashboard/Periodo.vue'
           </tbody>
         </v-table>
       </v-card-item>
+      <v-card class="pa-10">
+        <v-card-title>
+          Secciones no agregadas al horario
+        </v-card-title>
+        <div class="ma-4 error-border" v-for="seccion, idx of seccionesNoAgregadas" :key="'e'+idx">
+          <v-card-subtitle class="pl-4 pt-4 pr-4">
+            <span class="text-h6">{{`${(idx+1)}) ${seccion.materia.nombre} ${seccion.letra}`}}</span>
+          </v-card-subtitle>
+          <v-card-text class="pl-10">
+            La materia de {{ seccion.materia.nombre + " " + seccion.letra }} no ha sido agregada al horario, 
+            del area de <b>{{ seccion.materia.carrera_base }}</b>,
+            esta tiene una asignación de {{ seccion.asignados }} alumnos
+          </v-card-text>
+        </div>
+      </v-card>
     </v-card>
 </template>
 <script lang="ts">
@@ -139,12 +158,14 @@ export default {
       aulas: new Array<Aula>,
       horas: new Array<Array<Periodo>>,
       data: new Array<HorarioFinal>,
+      seccionesNoAgregadas: new Array<Seccion>,
       horarios: 7,
       horaInicio: 13,
       minutoInicio: 0,
       duracionPeriodoMinutos: 50,
       indexData: 0,
-      totalData:0
+      totalData: 0,
+      porcentajeFinal: -1
     }
   },
   computed: {
@@ -211,7 +232,7 @@ export default {
         minimo_porcentaje_secciones_chicas: this.$store.minimo_porcentaje_secciones_chicas,
         diferencia_entre_secciones_aulas: this.$store.diferencia_entre_secciones_aulas,
         cantidad_horarios: this.$store.cantidad_horarios,
-        porcentaje_no_catedratico: 0.05
+        porcentaje_no_catedratico: this.$store.porcentaje_no_catedratico,
       }, {
         headers: headers
       }).then((res) => {
@@ -230,6 +251,9 @@ export default {
         this.aulas = this.data[this.indexData].aulas;
         this.horarios = this.data[this.indexData].periodos;
         this.horas = this.data[this.indexData].horas;
+        this.porcentajeFinal = this.data[this.indexData].porcentajeAcierto;
+        this.seccionesNoAgregadas = this.data[this.indexData].seccionesNoEncontradas;
+        console.log(this.porcentajeFinal)
       }
     },
     nextHorario() {
@@ -253,9 +277,13 @@ export default {
       this.$store.setMinimoPorcentajeSeccionesChicas(v.minimo_porcentaje_secciones_chicas);
       this.$store.setDiferenciaEntreSeccionesAulas(v.diferencia_entre_secciones_aulas);
       this.$store.setCantidadHorarios(v.cantidad_horarios);
+      this.$store.setPorcentajeNoCatedratico(v.porcentaje_no_catedratico);
+      this.$store.setMinutos(v.minutos);
+      this.duracionPeriodoMinutos = this.$store.minutos;
     }
   },
   mounted() {
+    this.duracionPeriodoMinutos = this.$store.minutos;
   }
 }
 

@@ -61,6 +61,9 @@ import {
         <template v-slot:title>
           {{ periodo.seccion ? periodo.seccion.materia.nombre : "" }}
         </template>
+        <v-card-subtitle class="pl-6 pb-5">
+          Este curso pertenece al área de <b>{{ periodo.materia?.carrera_base }}</b>
+        </v-card-subtitle>
         <div v-if="periodo.seccion" class="pa-4">
           <v-row>
             <v-col cols="6">

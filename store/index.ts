@@ -11,7 +11,9 @@ export const useMainStore = defineStore('main', {
     porcentaje_materia_secundaria: 0.6,
     minimo_porcentaje_secciones_chicas: 0.3,
     diferencia_entre_secciones_aulas: 0.1,
-    cantidad_horarios: 3
+    cantidad_horarios: 3,
+    porcentaje_no_catedratico: 0.2,
+    minutos: 50,
   }),
   actions: {
     increment() {
@@ -44,6 +46,12 @@ export const useMainStore = defineStore('main', {
     },
     setCantidadHorarios(cantidad_horarios: number) {
       this.cantidad_horarios = cantidad_horarios;
+    },
+    setPorcentajeNoCatedratico(porcentaje_no_catedratico: number) {
+      this.porcentaje_no_catedratico = porcentaje_no_catedratico;
+    },
+    setMinutos(minutos: number) {
+      this.minutos = minutos;
     },
   },
 })
